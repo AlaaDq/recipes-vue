@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -26,30 +22,48 @@
       </div>
 
       <v-spacer></v-spacer>
-
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
+        color="red "
+        class="white--text"
+        v-if="$store.getters.isAuthenticated"
+        light
+        @click="logout"
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <span>Logout</span>
+        <v-icon>exit_to_app</v-icon>
       </v-btn>
+      <template v-else >
+       <div class="d-flex justify-space-around" style="width:10vw">
+
+        <router-link to="login">
+          <v-list-item-title class="white--text"> Login</v-list-item-title>
+        </router-link>
+
+            <router-link to="register">
+          <v-list-item-title class="white--text"> Register</v-list-item-title>
+              </router-link>
+       </div>
+
+      </template>
     </v-app-bar>
 
     <v-main>
-      <router-view/>
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
+  name: "App",
 
   data: () => ({
     //
   }),
+  methods:{
+    logout(){
+      this.$store.dispatch('logout')
+    }
+  }
 };
 </script>

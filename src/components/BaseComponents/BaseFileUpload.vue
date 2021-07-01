@@ -4,13 +4,12 @@
         v-model="files"
         color="deep-purple accent-4"
         counter
-        label="File input"
+        :label="label"
         multiple
         placeholder="Select your files"
         prepend-icon="mdi-paperclip"
         outlined
         :show-size="1000"
-        :loading="this.progress.percent <100 && this.progress.percent > 0"
         @change="handelvue"
         @click:clear="paraentFilesClear"
       >
@@ -40,6 +39,12 @@
 <script>
 
     export default {
+        props:{
+          label:{
+            type:String,
+            default:"File Input"
+          }
+        },
         mounted(){
         },
         data(){

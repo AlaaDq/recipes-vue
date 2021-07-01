@@ -1,4 +1,4 @@
-// import axios from "axios";
+import Vue from "vue";
 
 import JwtService from "@/common/jwt.service";
 
@@ -10,19 +10,19 @@ const state = () => ({
 
 const actions = {
     register({ dispatch }, user) {
-         this.axios.post('register', user).then((response)=>{
-            dispatch('LogIn', user.credentials)
+         Vue.axios.post('register', user).then((response)=>{
+            dispatch('login', user)
          })
     },
 
-    logIn({ commit }, user) {
-        this.axios.post("login", user.credentials).then((response)=>{
-            
-            commit("SETUSER", user);
+    login({ commit }, user) {
+        console.log(user)
+        Vue.axios.post("login", user.credentials).then((response)=>{
+            commit("SETUSER", response.data);
          })
     },
 
-    async logOut({ commit }) {
+    logout({ commit }) {
         commit("LOGOUT");
     },
 };
