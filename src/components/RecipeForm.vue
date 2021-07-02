@@ -9,11 +9,32 @@
                     v-model="$v.recipe.description.$model"
                     :hasError="$v.recipe.description.$error">
         </base-input>
+
         <base-file-upload
+            v-if="!isEditForm"
+            :label="'recipe image'"
+             v-on:files-loaded="recive($event)"
+            v-on:clear-files="onClearFiles()">
+        </base-file-upload>
+
+              <!-- edit form -->
+      <template v-else>
+        <v-img
+            :aspect-ratio="16/9"
+            :width="300"
+            :src="recipe.image"
+        ></v-img>
+
+        <v-checkbox
+            v-model="recipe.updateImageFlag"
+            :label="`Do you want to change old recipe image ?`"
+        ></v-checkbox>
+        <base-file-upload
+            v-if="recipe.updateImageFlag"
             :label="'recipe image'"
              v-on:files-loaded="recive($event)" v-on:clear-files="onClearFiles()">
         </base-file-upload>
-
+      </template>
         <v-btn color="success" @click="submitForm(recipe)" :disabled="$v.$invalid">{{buttonText}}</v-btn>
   </div>
 </template>
@@ -26,6 +47,10 @@
   export default {
     name: 'RecipeForm',
      props: {
+        isEditForm:{
+            type:Boolean,
+            default:false
+        },
        submitForm:  
        {
         type:Function,
@@ -36,23 +61,49 @@
         type:String,
         default:'submit'
         },
-    },
+    }, 
 
+    mounted(){
+                if(this.isEditForm)
+{
+         this.$axios.get(`recipes/${this.$route.params.name}`).then(
+                (response)=>{
+                // this.recipe=response.data
+
+
+        })
+       this.recipe= this.$store.getters['recipeByName'](this.$route.params.name)
+        
+
+}
+   
+    },
+  
    data() {
       return {
         recipe: {
           name:'',
           description: '',
-          files:[]
+          files:[],
+          updateImageFlag:false
         },
       }
     },
     validations() {
+        if(!this.isEditForm)
         return {
              recipe: {
                  name:{required},
                  description: {required},
                  files:{required}
+            },
+        }
+        else
+        return {
+             recipe: {
+                 name:{required},
+                 description: {required},
+                //  files optinals
             },
         }
     },

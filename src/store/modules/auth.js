@@ -36,6 +36,7 @@ const mutations = {
 
     LOGOUT(state) {
         state.user = null;
+        JwtService.destroyToken()
     },
 };
 

@@ -15,13 +15,17 @@
         >
         </base-input>
 
-        <base-input :label="'password'"
+        <base-input 
+                    :label="'password'"
                     :type="'password'"
                     v-model="$v.user.credentials.password.$model"
                     :hasError="$v.user.credentials.password.$error"
                     :validationMessages="['this field is requered','min length must be 4 char']" 
         >
         </base-input>
+
+
+
 
         <v-btn color="success" @click="submitForm(user)" :disabled="$v.$invalid">{{buttonText}}</v-btn>
 
@@ -37,6 +41,7 @@
   export default {
     name: 'UserAuthForm',
      props: {
+     
        submitForm:  {type:Function,
                       required:true
                       },
@@ -50,8 +55,6 @@
 
    data() {
       return {
-        showPassword: false,
-        // hasName: false,
         user: {
           username:'',
           credentials:{

@@ -18,7 +18,7 @@
         login(credentials){
           // console.log(credentials)
             this.$store.dispatch("login",credentials).then((res)=>{
-              this.$router.push('home')
+              this.$router.push('/')
             }).catch((e)=>{console.log(e)});
         }
     }

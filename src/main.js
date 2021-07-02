@@ -6,7 +6,8 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 
-import JwtService from "./common/jwt.service";
+import JwtService from './common/jwt.service';
+import 'animate.css'
 
 Vue.config.productionTip = false
 
@@ -15,6 +16,9 @@ Vue.config.productionTip = false
 const token=JwtService.getToken();
 if(token)
 JwtService.setHeader();
+
+
+
 
 
 new Vue({
