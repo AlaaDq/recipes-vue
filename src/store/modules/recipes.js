@@ -86,7 +86,6 @@ const actions = {
                 description:newItem.get('description'),
                 image:"https://picsum.photos/200/300"
                 }
-                console.log(recipe)
                 commit('UPDATE_RECIPE',  {name:name,newItem:recipe} );
             })
 
